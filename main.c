@@ -19,6 +19,22 @@ int main(int argc, char**argv) {
 
 }
 
+char *builtin_str[] = {
+  "cd",
+  "help",
+  "exit"
+};
+
+int (*builtin_func[]) (char **) = {
+  &rush_cd,
+  &rush_help,
+  &rush_exit
+};
+
+int rush_num_builtins() {
+  return sizeof(builtin_str) / sizeof(char *);
+};
+
 void input_loop(void) {
   char *line;
   char **args;
@@ -41,7 +57,7 @@ void input_loop(void) {
 char **split_line(char *line) {
 
   int bufsize = RUSH_TOK_BUFSIZE, position = 0;
-  char **tokens = malloc(bufsize * sizeof(char));
+  char **tokens = malloc(bufsize * sizeof(char*));
   char *token;
   if (!tokens) {
     fprintf(stderr, "rush: allocation error\n");
