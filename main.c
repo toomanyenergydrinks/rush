@@ -7,11 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-void input_loop(void);
-char *read_line(void);
-char **split_line(char *line);
-int launch(char **args);
+#include "main.h"
 
 int main(int argc, char**argv) {
 
