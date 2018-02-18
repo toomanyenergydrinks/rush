@@ -46,7 +46,7 @@ void input_loop(void) {
     printf("rush> ");
     line = read_line();
     args = split_line(line);
-    status = launch(args);
+    status = execute(args);
     history[history_ptr] = line;
     history_ptr = (history_ptr + 1) % HISTORY_SIZE;
   } while (status);
@@ -119,4 +119,21 @@ char *read_line(void) {
   ssize_t bufsize = 0;
   getline(&line, &bufsize, stdin);
   return line;
+}
+
+int execute(char **args) {
+
+  int i;
+  if (args[0] == NULL) {
+    return 1;
+  }
+
+  for (i=0;i<rush_num_builtins();i++) {
+    if (strcmp(args[0], builtin_str[i]) == 0) {
+      return (*builtin_func[i])(args);
+    }
+  }
+
+  return launch(args);
+
 }

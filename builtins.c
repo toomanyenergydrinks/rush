@@ -7,3 +7,12 @@ int rush_cd(char **args) {
     perror("rush");
   }
 }
+
+int rush_help(char **args) {
+  int i;
+  printf("AHHHH HELP ME");
+}
+
+int rush_exit(char **args) {
+  return 0;
+}
