@@ -11,7 +11,7 @@
 void input_loop(void);
 char *read_line(void);
 char **split_line(char *line);
-int execute(char **args);
+int launch(char **args);
 
 int main(int argc, char**argv) {
 
@@ -34,7 +34,7 @@ void input_loop(void) {
     printf("rush> ");
     line = read_line();
     args = split_line(line);
-    status = execute(args);
+    status = launch(args);
     history[history_ptr] = line;
     history_ptr = (history_ptr + 1) % HISTORY_SIZE;
   } while (status);
@@ -75,7 +75,29 @@ char **split_line(char *line) {
 
 }
 
-int execute(char **args) {
+int launch(char **args) {
+
+  pid_t pid, wpid;
+  int status;
+
+  pid = fork();
+  if (pid == 0) {
+    // we're the child process
+    if (execvp(args[0], args) == -1) {
+      perror("rush");
+    }
+    exit(EXIT_FAILURE);
+  } else if (pid < 0) {
+    // something went mad wrong
+    perror("error forking");
+  } else {
+    // we're the parent process
+    do {
+      wpid = waitpid(pid, &status, WUNTRACED);
+    } while (!WIFEXITED(status) && !WIFSIGNALED(status));
+  }
+
+  return 1;
 
 }
 
