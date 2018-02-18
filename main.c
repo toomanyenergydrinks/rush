@@ -1,7 +1,9 @@
 #define EXIT_SUCCESS 0
 #define EXIT_FAILURE 1
-#define RUSH_RL_BUFSIZE 50
+#define RUSH_RL_BUFSIZE 64
 #define HISTORY_SIZE 5
+#define RUSH_TOK_BUFSIZE 64
+#define RUSH_TOK_DELIM " \t\r\n\a"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -42,7 +44,34 @@ void input_loop(void) {
 
 char **split_line(char *line) {
 
-  
+  int bufsize = RUSH_TOK_BUFSIZE, position = 0;
+  char **tokens = malloc(bufsize * sizeof(char));
+  char *token;
+  if (!tokens) {
+    fprintf(stderr, "rush: allocation error\n");
+    exit(EXIT_FAILURE);
+  }
+
+  token = strtok(line, RUSH_TOK_DELIM);
+  while (token != NULL) {
+    tokens[position] = token;
+    position++;
+
+    if (position >= bufsize) {
+      bufsize += RUSH_TOK_BUFSIZE;
+      tokens = realloc(tokens, bufsize * sizeof(char));
+      if (!tokens) {
+        fprintf(stderr, "rush: allocation error\n");
+        exit(EXIT_FAILURE);
+      }
+    }
+
+    token = strtok(NULL, RUSH_TOK_DELIM);
+
+  }
+  tokens[position] = NULL;
+  return tokens;
+
 
 }
 
