@@ -1,4 +1,4 @@
-all:
-	gcc main.c builtins.c -o rush
+rush:
+	gcc builtins.c main.c -o rush
 test:
-	gcc test.c builtins.c -lcmocka -o test
+	gcc builtins.c test.c -lcmocka -o test

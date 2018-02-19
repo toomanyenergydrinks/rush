@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "main.h"
+#include "builtins.h"
 
 int main(int argc, char**argv) {
 
@@ -19,16 +20,16 @@ int main(int argc, char**argv) {
 
 }
 
-char *builtin_str[] = {
-  "cd",
-  "help",
-  "exit"
-};
-
-int (*builtin_func[]) (char **) = {
+extern int (*builtin_func[]) (char **) = {
   &rush_cd,
   &rush_help,
   &rush_exit
+};
+
+extern char *builtin_str[] = {
+  "cd",
+  "help",
+  "exit"
 };
 
 int rush_num_builtins() {

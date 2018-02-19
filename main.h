@@ -6,4 +6,4 @@ int launch(char **args);
 int rush_cd(char **args);
 int rush_help(char **args);
 int rush_exit(char **args);
-
+int rush_num_builtins();

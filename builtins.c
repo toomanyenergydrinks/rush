@@ -10,7 +10,7 @@ int rush_cd(char **args) {
 
 int rush_help(char **args) {
   int i;
-  printf("AHHHH HELP ME");
+  printf("AHHHH HELP ME\r\n");
 }
 
 int rush_exit(char **args) {
