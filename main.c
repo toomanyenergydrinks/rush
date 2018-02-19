@@ -63,9 +63,10 @@ int rush_num_builtins() {
 void shell_display() {
     /* what happens if the directory name is more than 60 chars here? */
     // answer: it breaks :\ better figure out some way around that
-    char *cwd = malloc(sizeof(char)*64);
-    getcwd(cwd, 64);
-    printf("rush [%s]> ", cwd);
+    long size = pathconf(".", _PC_PATH_MAX);
+    char *cwd = malloc(sizeof(char)*size);
+    getcwd(cwd, size);
+    printf("rush [%.40s]> ", cwd);
     free(cwd);
 }
 
