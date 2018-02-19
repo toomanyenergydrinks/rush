@@ -12,23 +12,43 @@
 #include "main.h"
 #include "builtins.h"
 
+char *read_line(void);
+
+int check_keypress(int code) {
+
+  if (code == 65 || code == 67 || code == 68) {
+    return 1;
+  } else {
+    return 0;
+  }
+
+}
+
+void handle_keypress(int code) {
+
+  printf("%d", code);
+
+}
+
 int main(int argc, char**argv) {
 
-  // load config files, if any
-
+  // run main REPL
   input_loop();
 
   return EXIT_SUCCESS;
 
 }
 
-extern int (*builtin_func[]) (char **) = {
+// builtin_func - table of function pointers to built-in commands
+// builtin_str - corresponding names/text triggers for builtin functions
+
+int (*builtin_func[]) (char **) = {
   &rush_cd,
   &rush_help,
   &rush_exit
 };
 
-extern char *builtin_str[] = {
+char *builtin_str[] = {
   "cd",
   "help",
   "exit"
@@ -38,7 +58,10 @@ int rush_num_builtins() {
   return sizeof(builtin_str) / sizeof(char *);
 };
 
+/* shell_display - determines what to display as a prefix to the command prompt. */
+
 void shell_display() {
+    /* what happens if the directory name is more than 60 chars here? */
     char *cwd = malloc(sizeof(char)*60);
     getcwd(cwd, 64);
     printf("rush [%s]> ", cwd);
