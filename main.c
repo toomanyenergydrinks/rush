@@ -1,11 +1,13 @@
-#define EXIT_SUCCESS 0
-#define EXIT_FAILURE 1
 #define RUSH_RL_BUFSIZE 64
 #define HISTORY_SIZE 5
 #define RUSH_TOK_BUFSIZE 64
 #define RUSH_TOK_DELIM " \t\r\n\a"
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/wait.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include "main.h"
 #include "builtins.h"
