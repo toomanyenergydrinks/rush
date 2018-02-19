@@ -7,3 +7,7 @@ This is intended as a learning experiment, I'm going to try and leave as many co
 * Displays current working directory
 * Can launch programs
  
+# Proposed Additions
+* Adding command history
+* Integrating a Ruby interpreter
+* Adding unit test coverage (CMocka already set up)
