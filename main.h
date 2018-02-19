@@ -1,3 +1,5 @@
+#define HISTORY_SIZE 5
+
 void input_loop(void);
 char *read_line(void);
 char **split_line(char *line);
