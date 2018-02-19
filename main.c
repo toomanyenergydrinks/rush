@@ -3,6 +3,7 @@
 #define RUSH_TOK_BUFSIZE 64
 #define RUSH_TOK_DELIM " \t\r\n\a"
 
+#include <pwd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -65,8 +66,16 @@ void shell_display() {
     // answer: it breaks :\ better figure out some way around that
     long size = pathconf(".", _PC_PATH_MAX);
     char *cwd = malloc(sizeof(char)*size);
+
+    register struct passwd *pw;  // defined in pwd.h
+    register uid_t uid;
+    int c;
+  
+    uid = geteuid ();
+    pw = getpwuid (uid);
+
     getcwd(cwd, size);
-    printf("rush [%.40s]> ", cwd);
+    printf("[%s@rush] [%.40s]> ", pw->pw_name, cwd);
     free(cwd);
 }
 
