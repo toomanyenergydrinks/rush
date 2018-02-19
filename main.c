@@ -36,6 +36,10 @@ int rush_num_builtins() {
   return sizeof(builtin_str) / sizeof(char *);
 };
 
+void shell_display() {
+    printf("rush> ");
+}
+
 void input_loop(void) {
   char *line;
   char **args;
@@ -44,7 +48,7 @@ void input_loop(void) {
   int status;
 
   do {
-    printf("rush> ");
+    shell_display();
     line = read_line();
     args = split_line(line);
     status = execute(args);
