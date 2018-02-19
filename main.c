@@ -37,7 +37,10 @@ int rush_num_builtins() {
 };
 
 void shell_display() {
-    printf("rush> ");
+    char *cwd = malloc(sizeof(char)*60);
+    getcwd(cwd, 64);
+    printf("rush [%s]> ", cwd);
+    free(cwd);
 }
 
 void input_loop(void) {
