@@ -1,5 +1,15 @@
 #include <stdio.h>
 
+extern char history[10][255];
+
+int rush_history(char **args) {
+  int x;
+  for (x=0;x<3;x++) {
+    printf("%s\n", history[x]);
+  }
+  return 1;
+}
+
 int rush_cd(char **args) {
   if (args[1] == NULL) {
     fprintf(stderr, "rush: expected argument to 'cd'\n");
