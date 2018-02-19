@@ -14,7 +14,7 @@ This is intended as a learning experiment, I'm going to try and leave as many co
 
 # Proposed Additions from CS Course Questions
 ## Cornell CS414
-* The prompt you print should indicate the current working directory. For example:  The directory: /usr/foo/bar%
+* ~~The prompt you print should indicate the current working directory. For example:  The directory: /usr/foo/bar%~~
 * It may also indicate other things like machine name or username or any other information you would like. Try getcwd(char * buf, size_t size) .
 * You should be able to redirect STDIN and STDOUT for the new processes by using < and >. For example, foo < infile > outfile would create a new process to run foo and assign STDIN for the new process to infile and STDOUT for the new process to outfile. In many real shells it gets much more complicated than this (e.g. >> to append, > to overwrite, >& redirect STDERR and STDOUT, etc.)! 
 * You should be able to place commands in the background with an & at the end of the command line. You do not need to support moving processes between the foreground and the background (ex. bg and fg). You also do not need to support putting built-in commands in the background.
