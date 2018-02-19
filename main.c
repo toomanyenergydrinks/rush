@@ -15,6 +15,9 @@
 
 char *read_line(void);
 
+char history[10][255];
+// = malloc(sizeof(char) * RUSH_RL_BUFSIZE * HISTORY_SIZE);
+
 int check_keypress(int code) {
 
   if (code == 65 || code == 67 || code == 68) {
@@ -46,12 +49,14 @@ int main(int argc, char**argv) {
 int (*builtin_func[]) (char **) = {
   &rush_cd,
   &rush_help,
+  &rush_history,
   &rush_exit
 };
 
 char *builtin_str[] = {
   "cd",
   "help",
+  "history",
   "exit"
 };
 
@@ -62,8 +67,6 @@ int rush_num_builtins() {
 /* shell_display - determines what to display as a prefix to the command prompt. */
 
 void shell_display() {
-    /* what happens if the directory name is more than 60 chars here? */
-    // answer: it breaks :\ better figure out some way around that
     long size = pathconf(".", _PC_PATH_MAX);
     char *cwd = malloc(sizeof(char)*size);
 
@@ -82,7 +85,6 @@ void shell_display() {
 void input_loop(void) {
   char *line;
   char **args;
-  char **history = malloc(sizeof(char) * RUSH_RL_BUFSIZE * HISTORY_SIZE);
   int history_ptr = 0;
   int status;
 
@@ -91,11 +93,10 @@ void input_loop(void) {
     line = read_line();
     args = split_line(line);
     status = execute(args);
-    history[history_ptr] = line;
+    strncpy(history[history_ptr],line, 255);
     history_ptr = (history_ptr + 1) % HISTORY_SIZE;
   } while (status);
 
-  free(history);
 }
 
 char **split_line(char *line) {
