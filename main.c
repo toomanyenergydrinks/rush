@@ -1,5 +1,4 @@
 #define RUSH_RL_BUFSIZE 64
-#define HISTORY_SIZE 5
 #define RUSH_TOK_BUFSIZE 64
 #define RUSH_TOK_DELIM " \t\r\n\a"
 
@@ -16,7 +15,7 @@
 char *read_line(void);
 
 char history[10][255];
-// = malloc(sizeof(char) * RUSH_RL_BUFSIZE * HISTORY_SIZE);
+int history_ptr = 0;
 
 int check_keypress(int code) {
 
@@ -85,7 +84,6 @@ void shell_display() {
 void input_loop(void) {
   char *line;
   char **args;
-  int history_ptr = 0;
   int status;
 
   do {
