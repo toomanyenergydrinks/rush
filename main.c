@@ -14,25 +14,6 @@
 
 char *read_line(void);
 
-char history[10][255];
-int history_ptr = 0;
-
-int check_keypress(int code) {
-
-  if (code == 65 || code == 67 || code == 68) {
-    return 1;
-  } else {
-    return 0;
-  }
-
-}
-
-void handle_keypress(int code) {
-
-  printf("%d", code);
-
-}
-
 int main(int argc, char**argv) {
 
   history_init();
