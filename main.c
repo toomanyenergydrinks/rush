@@ -17,6 +17,7 @@ char *read_line(void);
 int main(int argc, char**argv) {
 
   history_init();
+  process_list_init();
   // run main REPL
   input_loop();
 
@@ -31,6 +32,7 @@ int (*builtin_func[]) (char **) = {
   &rush_cd,
   &rush_help,
   &rush_history,
+  &rush_process,
   &rush_exit
 };
 
@@ -38,6 +40,7 @@ char *builtin_str[] = {
   "cd",
   "help",
   "history",
+  "process",
   "exit"
 };
 
@@ -128,6 +131,7 @@ int launch(char **args) {
     perror("error forking");
   } else {
     // we're the parent process
+    add_process(pid);
     do {
       wpid = waitpid(pid, &status, WUNTRACED);
     } while (!WIFEXITED(status) && !WIFSIGNALED(status));
