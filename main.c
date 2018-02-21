@@ -35,6 +35,7 @@ void handle_keypress(int code) {
 
 int main(int argc, char**argv) {
 
+  history_init();
   // run main REPL
   input_loop();
 
@@ -90,9 +91,8 @@ void input_loop(void) {
     shell_display();
     line = read_line();
     args = split_line(line);
-    status = execute(args);
-    strncpy(history[history_ptr],line, 255);
-    history_ptr = (history_ptr + 1) % HISTORY_SIZE;
+    status = execute(args); 
+    history_add(line);
   } while (status);
 
 }
