@@ -120,7 +120,7 @@ int launch(char **args) {
   if (pid == 0) {
     // we're the child process
     if (execvp(args[0], args) == -1) {
-      perror("rush");
+      perror(args[0]);
     }
     exit(EXIT_FAILURE);
   } else if (pid < 0) {

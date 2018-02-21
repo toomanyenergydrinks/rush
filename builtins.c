@@ -6,7 +6,7 @@ int rush_cd(char **args) {
     fprintf(stderr, "rush: expected argument to 'cd'\n");
   } else {
     if (chdir(args[1]) != 0) {
-      perror("rush");
+      perror("rush error");
     }
   }
   return 1;
